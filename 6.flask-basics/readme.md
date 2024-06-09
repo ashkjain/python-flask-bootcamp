@@ -19,3 +19,12 @@ Lets break it down and understand what is going on.
 * In the second line we are creating an instance of an object which is Flask.
 * Then we are creating a route which we will be calling templates, we are routing in this case to the main page. And then we are declaring a function which is returning an HTML.
 * At the very end we are running the script and upon run we are running the function.
+
+## 3. Basic Routes
+Currently our domain is local and represented as ** http://127.0.0.1:5000/ ** or ** localhost:5000 **. We use decorators to add on this:-
+```
+# http://127.0.0.1:5000/some_page
+
+@app.route("/some_page")
+```
+And when this is deployed this local link will be changed to the domain for ex: www.site.com

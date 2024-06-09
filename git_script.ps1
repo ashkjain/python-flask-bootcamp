@@ -1,10 +1,10 @@
 param(
-    [string]$CommitMessage
+    [string]$Cmsg
 )
 
-# Check if CommitMessage is provided
-if (-not $CommitMessage) {
-    Write-Host "Usage: ./git_script.ps1 -CommitMessage <commit message>"
+# Check if Cmsg is provided
+if (-not $Cmsg) {
+    Write-Host "Usage: ./git_script.ps1 -Cmsg <commit message>"
     exit 1
 }
 
@@ -12,7 +12,7 @@ if (-not $CommitMessage) {
 git add .
 
 # Commit with the provided message
-git commit -m "$CommitMessage"
+git commit -m "$Cmsg"
 
 # Push changes to remote repository
 git push

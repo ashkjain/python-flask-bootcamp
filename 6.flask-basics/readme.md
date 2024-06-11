@@ -28,3 +28,23 @@ Currently our domain is local and represented as ** http://127.0.0.1:5000/ ** or
 @app.route("/some_page")
 ```
 And when this is deployed this local link will be changed to the domain for ex: www.site.com
+Here is the example of this routing process!
+```
+@app.route('/information') #127.0.0.1:5000/information
+def info():
+    return "<h1> Puppies are cute</h1>"
+```
+In this code above decorator is providing the route /information
+
+## 4. Flask Dynamic Routing
+We are going to demonstrate URL extension to be dynamic based on the situation (This is how Real World application works!).
+For example we may want to create page per user, extension could be in form of: ** www.site.com/user/unique_user_name **
+To acheive this effect we can use dynamic routes. Dynamic routes have 2 key aspects, a variable in the route '<variable>' instead of the hard code value like above examples. Second parameter passed into the function.
+For ex:-
+```
+@app.route('some_page/<name>')
+def other-page(name):
+    #Later we will see how yo use this with templates!
+    return 'User:{}'.format(name)
+```
+.format(name) is filling up the space that is in curly braces. Curly braces is a placeholder.

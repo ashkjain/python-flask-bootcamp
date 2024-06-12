@@ -48,3 +48,11 @@ def other-page(name):
     return 'User:{}'.format(name)
 ```
 .format(name) is filling up the space that is in curly braces. Curly braces is a placeholder.
+
+```
+@app.route('/puppy/<name>')
+def puppy(name):
+    return "<h1>This is a page for {}</h1>".format(name.upper())
+```
+
+## 5. Debug Mode

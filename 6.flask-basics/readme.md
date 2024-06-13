@@ -56,3 +56,18 @@ def puppy(name):
 ```
 
 ## 5. Debug Mode
+We can set debug=True in our application to catch errors and it will stop immediatly the moment we make a mistake and or bug is introduced. This debug mode also gives us access to a console in the browser.
+If we try to run some code that is errornous but we are not using debug mode it will let it run, and at some point it will return Internal Server Error. For ex:
+```
+@app.route('some_page/<name>')
+def other-page(name):
+    #Later we will see how yo use this with templates!
+    return 'User:{}'.format(name[100])
+```
+This is the code and out value that is passed in the function is 'hello' but since hello does not have 100 charachters in it, it will cause an error and Flask will return Internal Server Error upon requesting this.
+To simply put the application in debug mode we can do this:-
+```
+if __name__ == "__main__":
+    app.run(debug=True)
+```
+We just have to pass positional argument with it being True for debug mode. And now if some error occurs it will either shut down the program but if it is in different route if will show what type of error is it. For the last example it will show something like `IndexError`.

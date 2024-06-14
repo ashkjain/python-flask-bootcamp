@@ -71,3 +71,9 @@ if __name__ == "__main__":
     app.run(debug=True)
 ```
 We just have to pass positional argument with it being True for debug mode. And now if some error occurs it will either shut down the program but if it is in different route if will show what type of error is it. For the last example it will show something like `IndexError`.
+To access the console you have to go to any error and you will see a terminal windows sign click on it, and it will ask you for a pin. The pin will be in your terminal where server is running: *`Debugger PIN: xxx-xxx-xxx` and then you can see based on which console you open you will see a console something like this:-
+```
+[ console ready ]
+>>> 
+```
+You can open console after a particular variable or the error you wanna debug. If you open console and the variable or function is not declared that you want to see result for it will give you some errors, because what you are trying to find does not exist yet.

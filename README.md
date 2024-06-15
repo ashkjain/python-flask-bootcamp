@@ -103,10 +103,15 @@ We went up one directory since we reside in templates when rendering, from there
 
 ## Application Directory Structure and Code after templates
 > Directory Structure:-
-- myenv (virtual environment)
-- Main Directory
+- myenv (Virtual Environment)
+- flask_example (Application Directory)
     - basic.py
     - templates
         - basic.html
     - static
         - puppy.jpg
+
+> Code inside files:-
+- flask_example/basic.py
+```
+```

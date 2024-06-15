@@ -77,3 +77,26 @@ To access the console you have to go to any error and you will see a terminal wi
 >>> 
 ```
 You can open console after a particular variable or the error you wanna debug. If you open console and the variable or function is not declared that you want to see result for it will give you some errors, because what you are trying to find does not exist yet.
+
+
+## 6. Template Basics
+For now we were just rendering string in return from the function on routes. But realistically we want to create HTML templates and we want function to render those.
+Flask will automatically look for HTML templates in the directory that will be called `templates`.
+So to render template in our application we have to use one of the function from flask library `render_template`, this will help us render templates .html files.
+
+Now where we imported Flask from flask library, we are also going to import render_template. The code will look somthing like this:-
+```
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+    return render_template('basic.html')
+```
+In this code while returning we are using render template function and in parantheses we are passing the name of the html file that should reside in the templates folder. This function will look files declared inside the templates folder so make sure you have created a directory called templates and in that directory html files should exist.
+We can also pass in some static files for example in that .html file in the template folder we can add one img tag and give it a souce to a local image. Anything that is staic does not reside in the template folder, create a folder called `static` to store static files like templates in the main directory of our application. The will be something like this:-
+```
+<img src="../static/puppy.jpg" alt="">
+```
+We went up one directory since we reside in templates when rendering, from there we will enter static and then the name of the img or static files.

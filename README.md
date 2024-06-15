@@ -101,6 +101,39 @@ We can also pass in some static files for example in that .html file in the temp
 ```
 We went up one directory since we reside in templates when rendering, from there we will enter static and then the name of the img or static files.
 
+## 7. Template Variables
+We are rendering HTML file using render_temoplate function, but we can also use variables inside those templates which will be done by template engine for flask called Jinja. We can directly pass variables inside of our html file. Syntax to pass a variable inside the html is `{{ some_variable }}`. We set parameters in our render_template function to pass those variables inside the html and then we pass those variable inside our templates in between these: `{{ }}`.
+What we can do we can create a variable inside the function and then pass it to render_template like this:-
+```
+@app.route("/")
+def index():
+    some_variable = "Some Value"
+    return render_template('basic.html', myvar = some_variable)
+```
+When passing the variable we created an alias for the template to refer to the variable in the function. In this case we are using `myvar` for our template which will refer to `some_variable` which exist in our function called `index`.
+To read the variable inside the template what we can do is this:-
+```
+<h1>Hello! {{ myvar }}</h1> 
+<!-- This will return the value of myvar which in python file is set to 'Some Value' -->
+```
+Another easy way while passing parameter make both value the same for example instead of setting it to myvar just use `some_variable = some_variable` to make it less confusing.
+Not only we can pass strings in the template we can pass all sorts of data inside the template. We can pass lists, tuples, dictionaries and other forms of data, and we can use some data functions inside the templates too. For example:-
+* Python
+```
+@app.route("/")
+def index():
+    myList = [1,2,3,4]
+    myTuple = (1,2,3,4)
+    myDict = {'One':'Number One'}
+    render_template('basic.html', myList = myList, myTuple = myTuple, myDict = myDict)
+```
+* HTML
+```
+<h2>This is List {myList[0]}</h2>
+<h2>This is Tuple {myTuple[:]}</h2>
+<h2>This is Dcitionary {myDict['One']}</h2>
+```
+
 ## Application Directory Structure and Code after templates
 > Directory Structure:-
 - myenv (Virtual Environment)
@@ -113,5 +146,8 @@ We went up one directory since we reside in templates when rendering, from there
 
 > Code inside files:-
 - flask_example/basic.py
+```
+```
+- flask_example/templates/basic.html
 ```
 ```

@@ -133,6 +133,23 @@ def index():
 <h2>This is Tuple {myTuple[:]}</h2>
 <h2>This is Dcitionary {myDict['One']}</h2>
 ```
+## 8. Template Control Flow
+Now we know that we can pass variables in our templates, but it doesn't end there, we also have access to control flow syntax in our templates, such as: For Loop, if-else-elif ladder and more Jinja based control flow structures. To use these syntax simpliy we have to use something like this: `{% control_flow %}`. Take a look at this example with list to understand more:-
+* HTML
+```
+<ul>
+{% for item in mylist %}
+<li> {{ item }} </li>
+{% endfor %}
+</ul>
+
+{% if user_logged_in %}
+<p> You are logged in!</p>
+{% else %}
+<p>Please log in</p>
+{% endif %}
+```
+Make sure end your control flow data whenever it is being use, such as for loop like for use endfor, or for if use endif.
 
 ## Application Directory Structure and Code after templates
 > Directory Structure:-

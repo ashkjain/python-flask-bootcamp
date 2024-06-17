@@ -151,6 +151,49 @@ Now we know that we can pass variables in our templates, but it doesn't end ther
 ```
 Make sure end your control flow data whenever it is being use, such as for loop like for use endfor, or for if use endif.
 
+## 9. Template Inheritance
+Template inheritance is used to irradicate the need to add similar items in every template which is same in our application. For example: Header, Footer, Naviagation bars, most of the time are similar and show the same information, but in templates we have to create them again, to remove that unnessary work we can inherit those templates in our other templates. In order to do that we use these: `{% extend "base.html" %}` and `{% block %}`. So to do this theoretical method we create a template first like this:-
+* base.html
+```
+Here is all the information that will be same in all the page, such as navigation bar, header
+{% block content %}
+{% endblock %}
+Here is all the information that will be same in all the page, such as navigation bar, footer
+```
+* home.html
+```
+{% extends "base.html" %}
+All information from base.html
+
+{% block content %}
+Here will be the new information based on the page
+{% endblock %}
+
+All information from base.html
+```
+What we did here in base.html we created all the information that will be same throughout all the pages, after block we can give that block whatever name we want, like `{% block header %}` but usually content is easy way to remeber the name of the block. And whatever is in the block will be changed based on the page we are inheriting it to, in simple language the block is where dymanic content is shown. Then in home.html we extended that template by using `{% extends "base.html" %}` and we create more block where we will write the content that will be dynamic and serves the purpose of the page. In result the header and footer content will be on our home.html page without typing it again, and with dynamic content that will be coming from variables.
+There is also one function or feature from Jinja, that we can use filters on our variables, to filter our variable we have to use pipe operator and tell what filter to use. For example I want to capitalize the Variable that is coming in template which could be lower or upper but I need it to be capitalize what we can do is: `{{ name | capitalize }}` this will make the first letter uppercase and rest lowercase, we do not have to do all the logic in our python code, because it can get messy.
+
+## 10. url_for help function
+There is a function called url_for that helps us to connect our templtes pages or files within our templates. To use it in the links where we define HREF we have to pass the name of the view, and when I say view I mean the name of the function that is rendering that template. Example:
+* Python
+```
+@app.route("/")
+def index():
+    return render_template('index.html')
+```
+* HTML
+```
+<a href="{{'index'}}">Home Page</a>
+```
+We cannot only add templates we can also add static files to it. For example we can pass in two parameters, first parameter folder name, second parameter filename = nameofthefile.extensions. Here is the example:-
+* HTML
+```
+<a href="{{url_for('static', filename = iamge.jpg)}}"></a>
+```
+
+## 11. Template Forms
+
 ## Application Directory Structure and Code after templates
 > Directory Structure:-
 - myenv (Virtual Environment)

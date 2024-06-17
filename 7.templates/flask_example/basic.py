@@ -20,5 +20,13 @@ def index_2():
     user_log = False
     return render_template('control.html', mylist = mylist, puppies = puppies, user_log = user_log)
 
+@app.route("/inheritance")
+def index_3():
+    return render_template("home.html")
+
+@app.route("/puppy/<name>")
+def pup_name(name):
+    return render_template("puppy.html", name = name)
+
 if __name__ == "__main__":
     app.run(debug=True)

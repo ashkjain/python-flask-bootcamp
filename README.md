@@ -218,7 +218,7 @@ def thankyou():
 ```
 This way you are getting the values passed from the form and being catched in another page, and then we can use the data as we want, based on the application. `request` function have to functions itself, first .args and then .get, it means return arguments and then we pass the name of the argument in this case we named our input boxes first and last, so we used those.
 
-* **** Bonus Section ****
+# **** Bonus Section ****
 Lets create our own custom 404 error page.
 ## Application Directory Structure and Code after templates
 > Directory Structure:-

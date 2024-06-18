@@ -219,7 +219,15 @@ def thankyou():
 This way you are getting the values passed from the form and being catched in another page, and then we can use the data as we want, based on the application. `request` function have to functions itself, first .args and then .get, it means return arguments and then we pass the name of the argument in this case we named our input boxes first and last, so we used those.
 
 # **** Bonus Section ****
-Lets create our own custom 404 error page.
+Lets create our own custom 404 error page. In order to do that first what we have to do is, we have to create our own template so we can pass that when 404 occurs. Since we are creating a route for 404 it is not going to be a typical route like normal template, in this we have to modify our decorator: `@app.errorhandler(404)`, this is the function of the application, in this we have to pass the type of the error since we are creating 404 error page we are passing the error code: 404. Then declare the function, and as a convention pass a variable `e` it could be anything it is just the convetion to use 'e' for errors. And when rendering template after using then add comma in return and add the number of the error. Here is the example:-
+```
+@app.errorhandler(404)
+def pageNotFound(e):
+    return render_template('404.html'), 404
+```
+
+# 12. Flask Form Basics
+
 ## Application Directory Structure and Code after templates
 > Directory Structure:-
 - myenv (Virtual Environment)

@@ -1,0 +1,23 @@
+{% extends 'exbase.html' %}
+
+{% block content %}
+<p>Let see how you performed!!</p>
+{% if prompt == True %}
+<p>Your Username passed the 3 requirments!</p>
+{% else %}
+<p>Oh no! Looks like you had issues with your username!</p>
+<p>Here are the requirements you failed:</p>
+<ul>
+    {% if req[0] == False%}
+    <li>You did not user an Uppercase character.</li>
+    {% endif %}
+    {% if req[1] == False%}
+    <li>You did not user an Lowercase character.</li>
+    {% endif %}
+    {% if req[2] == False%}
+    <li>You did not end your username with a number.</li>
+    {% endif %}
+</ul>
+
+{% endif %}
+{% endblock %}

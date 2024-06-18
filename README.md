@@ -193,7 +193,33 @@ We cannot only add templates we can also add static files to it. For example we 
 ```
 
 ## 11. Template Forms
+We learned how to retreive infomration using variables, but now we are gonna use forms to get information from user. No we are not going to connect to database yet, but it is a beginning. Lets introduce new function called `request`, this function will help to return the information from the external form. To use this function what we do is when the form is routing to a different page, or sending the request to different page, on that page function we have to catch those values. This is how we do it:-
+* HTML Form
+```
+<form action="{{url_for('thankyou')}}">
+    <label for="first">First Name</label>
+    <input type="text" name="first">
+    <label for="last">Last Name</label>
+    <input type="text" name="last">
+    <input type="submit" value="Submit form">
+</form>
+```
+* HTML Requested
+```
+<h1> Thank you for submitting {{firstName}} {{lastName}} </h1>
+```
+* Python
+```
+app.route("/thankyou")
+def thankyou():
+    firstName = request.args.get('first')
+    lastName = request.args.get('last')
+    return render_template('thankyou.html', firstName = firstName, lastName = lastName)
+```
+This way you are getting the values passed from the form and being catched in another page, and then we can use the data as we want, based on the application. `request` function have to functions itself, first .args and then .get, it means return arguments and then we pass the name of the argument in this case we named our input boxes first and last, so we used those.
 
+* **** Bonus Section ****
+Lets create our own custom 404 error page.
 ## Application Directory Structure and Code after templates
 > Directory Structure:-
 - myenv (Virtual Environment)

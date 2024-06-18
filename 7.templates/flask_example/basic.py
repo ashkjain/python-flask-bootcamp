@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -27,6 +27,21 @@ def index_3():
 @app.route("/puppy/<name>")
 def pup_name(name):
     return render_template("puppy.html", name = name)
+
+@app.route("/home")
+def forms():
+    return render_template('indexform.html')
+
+@app.route("/signup")
+def signup():
+    return render_template("signup.html")
+
+@app.route("/thankyou")
+def thankyou():
+    firstName = request.args.get('first')
+    lastName = request.args.get('last')
+    return render_template('thankyou.html', firstName = firstName, lastName = lastName)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -271,6 +271,39 @@ In this HTML what is happeinig is, we are checking if the breed variable that we
 
 ## 13. Forms Fields Part One
 There are various fields in a form, and you can import all of them from `wtforms` like we imported `SubmitField` and `StringField`. We are gonna use for this `session`, `redirect`, and `url_for` and these all are from main `flask` library. We have learned about `url_for` but this is different and on the flask script side. And from `wtforms` we will be importing other fields too like: `BooleanField, DateTimeField, RadioField, SelectField, TextAreaField`. We are also going to be importing validators for our form, so user will know what is required and what is valid while filling the form, we will import it like this: `from wtforms.validators import DataRequired` we are only importing this for now, and what this does is, it tells user that this is a required filed and needs to be filed. To use these validators in our form, what we have to do is, when we are passing the label for the field we can put a comma after the label and pass another parameter and we can simply say `validator = [type_of_validator()]` by default it is always none unless we change it to something like `DataRequired`. Now we are going to see how those other fields work. Booleanfield is a yes or no question  and accepts a label as a parameter. RadioField as it sounds creates a radio button and after label we can pass another parameter for various radio buttons, and to pass those choices the parameter that is accepted is called `choices = [('choice_1','First Choice'),('choice_2','Second Choice)]`, so we have to pass the choices which is a list, and the choices that user will see are going to be in a tuple pair, it means first values is going to be the identifier and the second value inside the tuple is going to be the prompt that user will choose, and we can pass as many tuple pair based on the choices that are offered, and only one can be chosen. Now lets see how SelectField works, don't worry it works as the same way as Radio works, the difference is that multiple values can be returned. And TextArea field will give user a space to write which is usually used to provide feedbacks on website by user.
+So Now we are done with the fields, we will use session, what session does is, it holds the information by the user and holds it in the server, unlike cookies it is reserved per session to keep track of login and logout. So when we go to different page it remembers the values or holds the value and keep the information to be used in different page like logging into a webiste and using the functionality unless logged out, or the session is terminated. So how it stores the session values is, it is like a dictionary, and we set the key and values. Something Like this:-
+```
+if form.validate_on_submit():
+    session['fname'] = form.firstname.data
+    session['lname'] = form.lastname.data
+    session['boolean'] = form.yesno.data
+    session['radiovalue'] = form.radio.data
+    session['selectfield'] = form.selectfield.data
+    session['feedback'] = form.feedbacktextarea.data
+```
+This is an example how we can store the data in session which is treated as a dictionary and the values are stored and move around the pages until the session is terminated. These values or information are not permanent, this is not going to database it is used to save values be so when we move to different page the values we begin with remains the same and session be in running, until terminated. Now let's talk about `redirect`, and `url_for` function, so what these functions are going to do is, `url_for` will create the link to the url that it will be redirected to, as a parameter we pass the name of the function or the view we want it to go, and we pass the returned url into `redirect` as a parameter to send it to that view with all the information. For example after checking the form is validated as above shown we can return it from that if function like this: `return redirect(url_for('function_name_or_view'))`. Lets see how it can be used with an explanation:-
+```
+app.route("/", methods= ['GET','POST'])
+def index():
+    form = InfoForm()
+    if form.validate_on_submit():
+        session['breed'] = form.breed.data
+        session['neutered'] = form.neutered.data
+        session['mood'] = form.mood.data
+        session['food'] = form.food_choice.data
+        session['feedback'] = form.feedback.data
+        return redirect(url_for('thankyou'))
+    return render_template('main.html', form = form)
+
+@app.route("/thankyou")
+def thankyou():
+    return render_template('thank.html')
+```
+In this example what we did, we creating a form, if the session has not been created user will see the `main.html` in the return value, but if the submission has been made and the session is started the return from the if which is validation will return and in result it will redirect it to the another view called `thankyou`.
+
+## 14. Forms Fields Part Two
+
+
 ## Application Directory Structure and Code after templates
 > Directory Structure:-
 - myenv (Virtual Environment)

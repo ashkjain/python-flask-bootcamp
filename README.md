@@ -184,7 +184,7 @@ def index():
 ```
 * HTML
 ```
-<a href="{{'index'}}">Home Page</a>
+<a href="{{url_for('index')}}">Home Page</a>
 ```
 We cannot only add templates we can also add static files to it. For example we can pass in two parameters, first parameter folder name, second parameter filename = nameofthefile.extensions. Here is the example:-
 * HTML
@@ -226,8 +226,48 @@ def pageNotFound(e):
     return render_template('404.html'), 404
 ```
 
-# 12. Flask Form Basics
+## 12. Flask Form Basics
+Now we are going to make our life easy when we are creating forms using flask. We can use `flask_wtf`, and `wtforms` packages to create forms quickly, with just our python scripts. First we have to configure secret key for security. Second we create WTForm class and create fields for each part of the form. Then we set up our view function, in which we add methods `methods = ['GET','POST']`, create an instance of form class, and then handle form submission. Make sure you also install `flask_wtf` using this command: `pip install flask_wtf` if upon importing shows error make sure you install it in the global environment as well. Now in application we are required to import few more things. First: `from flask_wtf import FlaskForm` this will help us built forms, and Second `from wtforms import StringField, SubmitField` this will helps us building the types inside the form like submit button, and string text input. Now we are going to set a secret key, so our flask app instance have some configuration that we can set and add. We are gonna set secret key like this: `app.config["SECRET_KEY"] = "secretkey"` and this config is a dictionary and there are various configuration we can set.
+Now we are going to create a class which is going to be our form. We are going to declare a class and inherit `FlaskForm` and then declare fields with `wtforms`. Here is the example:-
+```
+from flask import Flask, render_template
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
 
+app = Flask(__name__)
+
+app.config['SECRET_KEY'] = "mysecretkey"
+
+class InfoForm(FlaskForm):
+    breed = StringField("What Breed Are You?")
+    submit = SubmitField("Submit")
+
+@app.route("/", methods = ['GET','POST'])
+def index():
+    breed = False
+    form = InfoForm()
+    if form.validate_on_submit():
+        breed = form.breed.data
+        form.breed.data = ''
+    return render_template('index.html', form = form, breed = breed)
+```
+In the `breed` attribute we will get the input from the user and the content in the function is the label for that field. Same for submit, but it will just be going to a submission button. Then we create our route and put the methods that we will be using which is GET and POST method. Then we created a view in which we created a variable `breed` which we make a boolean False, Then we created an Instance of our class as `form = InfoForm()`. Now we are using if statement and checking if upon submission the form is validated or not. If it is validated the local variable `breed` will receive the value from the form `breed = form.breed.data` it means from the form instance grab the attribute breed and then extract its data into the variable. Then we reset the value of the breed attribute not variable `form.breed.data = ''` and then we rendered the template and pass the instance for the InfoForm which is `form` and the local variable `breed`. Now we are going to work on HTML:-
+```
+<p>
+    {% if breed %}
+    The Breed You Entered is {{breed}}
+    Update it in the form below:
+    {% else %}
+    Please enter your breed:
+    {% endif %}
+</p>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.breed.label}} {{ form.breed() }}
+    {{ form.submit() }}
+</form>
+```
+In this HTML what is happeinig is, we are checking if the breed variable that we passed is True or Not, if not it is going to ask user to Enter the value, if True it will show the breed and the form under will ask user to update the value. Then we are creating a form and in this form our Method is 'POST' because we are creating the data not pulling or getting it out. Then in the form we added the function with our object `form.hidden_tag()` which is a Cross-Site Request Forgery, which is a type of security vulnerability, to prevent that we use this function. Then we are calling the attribute breed which also contains a label which we passed in the parantheses during declaration, and next to it we pass the input field which is a function. Then on next line we passed the function which creates a submit button.
 ## Application Directory Structure and Code after templates
 > Directory Structure:-
 - myenv (Virtual Environment)

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form | First,Last - Name</title>
+</head>
+<body>
+    <p>
+    {% if (fname and lname) %}
+    Your Name is : {{fname}} {{lname}}
+    {% else %}
+    Please enter your name: 
+    {% endif %}
+</p>
+    <form method="post">
+{{ myform.hidden_tag()}}
+{{ myform.firstname.label }} {{myform.firstname()}} <br>
+{{myform.lastname.label }} {{myform.lastname()}} <br> 
+{{ myform.submit() }}
+    </form>
+</body>
+</html>

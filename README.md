@@ -287,12 +287,14 @@ app.route("/", methods= ['GET','POST'])
 def index():
     form = InfoForm()
     if form.validate_on_submit():
-        session['breed'] = form.breed.data
-        session['neutered'] = form.neutered.data
-        session['mood'] = form.mood.data
-        session['food'] = form.food_choice.data
-        session['feedback'] = form.feedback.data
+        session['fname'] = form.firstname.data
+        session['lname'] = form.lastname.data
+        session['boolean'] = form.yesno.data
+        session['radiovalue'] = form.radio.data
+        session['selectfield'] = form.selectfield.data
+        session['feedback'] = form.feedbacktextarea.data
         return redirect(url_for('thankyou'))
+
     return render_template('main.html', form = form)
 
 @app.route("/thankyou")
@@ -300,6 +302,17 @@ def thankyou():
     return render_template('thank.html')
 ```
 In this example what we did, we creating a form, if the session has not been created user will see the `main.html` in the return value, but if the submission has been made and the session is started the return from the if which is validation will return and in result it will redirect it to the another view called `thankyou`.
+Here is the class that will help you to know how the form field are working:-
+```
+class InfoForm(FlaskForm):
+    firstname = StringField("What is your first name?", validators = [DataRequired()])
+    lastname = StringField("What is your last name?", validators = [DataRequired()])
+    yesno = BooleanField("Are you a human?")
+    radio = RadioField('Please choose your mood: ', choices=[('mood_one','Happy'),('mood_two','Excited')])
+    selecfield = SelectField('Pick your favorite food:', choices=[('chi','Chicken'),('bf','Beef'),('fish','Fish')])
+    feedbacktextarea = TextAreaField()
+    submit = SubmitField()
+```
 
 ## 14. Forms Fields Part Two
 

@@ -315,7 +315,35 @@ class InfoForm(FlaskForm):
 ```
 
 ## 14. Forms Fields Part Two
-
+Now we are going to add templates for the backend that we wrote, we are now going to use those classes and those form fields in out .HTML files to see the app functioning. So, for this part wer are using template for user to fill in the details, and if the details are filled or session is active, we will be redirected to `thankyou` view, otherwise it will return a form for a user to fill out. We are going to pass the simple instance attributes in the form, and when we get to that `thankyou` view, it will return the session content, something like this the code will be written: `{{session['breed']}}` it will only return something if the session is running. And when we are representing the RadioField or SelectField values, the keys will be shown, not the values that user saw while filling the form. So make sure to make those values same to store later and it also makes sense to user and programmer. What it means is, the tuple that is passed, first value is actual data and the second value is just the representation for the user.
+Here is the HTML that is being used:-
+* main.HTML
+```
+<h1>Welcome to the Puppy Survey!</h1>
+<form method="post">
+    {{form.hidden_tag()}}
+    {{form.breed.label}} {{form.breed()}} <br>
+    {{form.neutered.label}} {{form.neutered()}} <br>
+    {{form.mood.label}} {{form.mood()}} <br>
+    {{form.food_choice.label}} {{form.food_choice()}} <br>
+    Any Other Feedback?
+    {{form.feedback()}} <br>
+    {{form.submit()}}
+</form>
+```
+* thankyou.html
+```
+<h1>Thank you. Here is the info you gave us:</h1>
+<ul>
+    <li>Breed: {{session['breed']}}</li>
+    <li>Neutered: {{session['neutered']}}</li>
+    <li>Mood: {{session['mood']}}</li>
+    <li>Food: {{session['food']}}</li>
+    <li>Feedback: {{session['feedback']}}</li>
+</ul>
+```
+## 15. Flash Alerts
+We sometime need to send user a flash message that do not need to be saved, and can be closed by the user. Flask has some built in features to do that so we do not have to put those alerts permanetly on our templates.
 
 ## Application Directory Structure and Code after templates
 > Directory Structure:-

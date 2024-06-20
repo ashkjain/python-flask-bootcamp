@@ -343,8 +343,33 @@ Here is the HTML that is being used:-
 </ul>
 ```
 ## 15. Flash Alerts
-We sometime need to send user a flash message that do not need to be saved, and can be closed by the user. Flask has some built in features to do that so we do not have to put those alerts permanetly on our templates.
+We sometime need to send user a flash message that do not need to be saved, and can be closed by the user. Flask has some built in features to do that so we do not have to put those alerts permanetly on our templates. To do all that we have a function called `flask` that we can use in our application to perform that task. So how we can use flask is we just import it from `flask` library, and then we can call it in our view like this: `flash('Here Goes The Message)`, and to render it on the template there is a function that needs to be used, which is called `get_flashed_messages()` this will return an iterable object and we can iterate multiple flash alerts. We can use for loop to iterate this since it returns an iterable object. Here is the example:-
+* python
+```
+@app.route("/", methods=['GET','POST'])
+def index():
+    form = SimpelForm()
 
+    if form.validate_on_submit():
+        flash('You just clicked the button!')
+        return redirect(url_for('index'))
+    return render_template('flash.html', form = form)
+```
+What is happening in this file is, it is returning itself upon clicking, but it shows the functionality how `flash` works.
+* html
+```
+{% for mess in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>{{mess}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    <form method="POST">
+        {{form.hidden_tag()}}
+        {{form.submit()}}
+    </form>
+```
+There is some copied code from bootstrap to make it look like javascript alerts without directly using JavaScript.
 ## Application Directory Structure and Code after templates
 > Directory Structure:-
 - myenv (Virtual Environment)

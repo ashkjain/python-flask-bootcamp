@@ -381,7 +381,7 @@ We have used our application to receive data from the user, but we never stored 
 When we are working with Database we are going to these following operations:-
 - Setting up a SQLite Database in Flask App
 - Create a model in flask
-- Perform basic CRUD operations
+- Perform basic CRUD operations \
 To create a SQLite database we have to follow few things:-
 - First we need to create a Flask application
 - Then configure Flask App for Flask-SQLAlchemy

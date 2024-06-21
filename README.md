@@ -382,6 +382,11 @@ When we are working with Database we are going to these following operations:-
 - Setting up a SQLite Database in Flask App
 - Create a model in flask
 - Perform basic CRUD operations
+To create a SQLite database we have to follow few things:-
+- First we need to create a Flask application
+- Then configure Flask App for Flask-SQLAlchemy
+- Then pass our application into the SQLAlchemy class call
+After all that we need to create a model in SQL which in simple words is creating a Table. We do not have to create a table manually in SQL. Instead we create a model class in Python that creates a table for us.
 
 ## Application Directory Structure and Code after templates
 > Directory Structure:-

@@ -400,7 +400,40 @@ To create a model is as simple as the way we created forms:-
 - Add methods for `__init__` and `__repr__`
 
 
+First we are going to start by importing OS `import os`, it will allow us to grab directory names and paths. And obviously we are going to import Flask and now the main part we are going to import SQLAlchemy by this `from flask_sqlalchemy import SQLAlchemy`. Now we have to setup our SQLite database, we are going to start adding that database to the base directory and we are going to use this to tell python to create the database here `basedir = os.path.abspath(os.path.dirname(__file__))` so what this code is doing is, code assigns 'basedir' the absolute path of the directory containing the current script. This is used to construct paths relative to the scripts location (We are just grabbing our own location where we exist, in this case our main python file). Now we will create Flask instance and then create a configuration to connect to the database. Here is how we are going to configure it: `app.config['SQLALCHEMY_DATABASE_URI] = 'sqlite:///'+ os.path.join(basedir,'data.sqlite')`, so what this line of code is doing is, we are telling the config that make a connection to sqlite and we tell it where it exist which is going to be the base directory, we are using basedir variable for it, and the name of the database file which in this case is 'data.sqlite'. There is one more configuration we have to make, we have to turn of the updates for every single modification is being made, this is how you do it: `app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False`. Now we are going to create an instance for SQLAlchemy with the flask instance: `db = SQLAlchemy(app)`. You are now going to create a class and inherit the database instance your created in it, by saying `class NameOfClass(db.model):`. SQLAlchemy creates a table name based on the class name, but to overwrite it we can use this `__tablename__ = 'tablename'`. Now what we are going to do is setup columns, to create columns we are going to use the instance that we just inherited and pass the column types in the variable of our choice, like this: `id = db.Column(db.Integer, primary_key = True)` the other parameter is just telling that this column is going to be a primary key, here is one more example: `name = db.Column(db.Text)` here we are accepting the values as a string or text value. Then we are going to define `__init__` and `__repr__` here is the code and the explanation:-
+```
+import os
+from flask import Flask, render_template, session, redirect, url_for
+from flask_wtf import FlaskForm
+from flask_sqlalchemy import SQLAlchemy
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+# __file__ --> basic.py
+
+app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+os.path.join(basedir,'data.sql')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+#-----------------------
+
+class Puppy(db.Model):
+    __tablename__ = "puppies"
+    id = db.Column(db.Integer, primary_key = True) 
+    name = db.Column(db.Text)
+    age = db.Column(db.Integer)
+
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def __repr__(self):
+        return f"Puppy {self.name} is {self.age} year's old"
+    
+```
+In this we are initializing object of the class, with it's attributes. And to see the string representation of it we are using `__repr__` method and returning in a 'f' string (repr is used for debugging and development).
 ## Application Directory Structure and Code after templates
 > Directory Structure:-
 - myenv (Virtual Environment)

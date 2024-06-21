@@ -370,6 +370,11 @@ What is happening in this file is, it is returning itself upon clicking, but it 
     </form>
 ```
 There is some copied code from bootstrap to make it look like javascript alerts without directly using JavaScript.
+
+## 16. Forms and Flash Code Along Project
+The main changes we did, is added one StringField and used session to pass the value in the Alert or Flash.
+
+## 17. Python and Databases
 ## Application Directory Structure and Code after templates
 > Directory Structure:-
 - myenv (Virtual Environment)

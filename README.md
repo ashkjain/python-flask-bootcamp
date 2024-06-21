@@ -386,8 +386,13 @@ To create a SQLite database we have to follow few things:-
 - First we need to create a Flask application
 - Then configure Flask App for Flask-SQLAlchemy
 - Then pass our application into the SQLAlchemy class call
-After all that we need to create a model in SQL which in simple words is creating a Table. We do not have to create a table manually in SQL. Instead we create a model class in Python that creates a table for us.
-
+After all that we need to create a model in SQL which in simple words is creating a Table. We do not have to create a table manually in SQL. Instead we create a model class in Python that creates a table for us. \
+To create a model is as simple as the way we created forms:-
+- Create a Model class
+- Inherit from `db.Model`
+- Provide the name of the table
+- Add table columns as attributes
+- Add methods for `__init__` and `__repr__`.
 ## Application Directory Structure and Code after templates
 > Directory Structure:-
 - myenv (Virtual Environment)

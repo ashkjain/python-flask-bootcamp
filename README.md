@@ -375,6 +375,14 @@ There is some copied code from bootstrap to make it look like javascript alerts 
 The main changes we did, is added one StringField and used session to pass the value in the Alert or Flash.
 
 ## 17. Python and Databases
+We have used our application to receive data from the user, but we never stored it permanently so we can use it again, even after closing our application. We will be using Database to store our information, in order to store information in a database we are going to use SQL Queries to CREATE, READ, UPDATE, and DELETE operations. To make a connection from python, flask and sql we will be using a library or an ORM (object Relational Mapper) called `SQLAlchemy`. We are going to install this on our system using this command `pip install Flask-SQLAlchemy` make sure do install `Flask-SQLAlchemy` not just `SQLAlchemy`, they both are different, but serves the same purpose, but Flask-SQLAlchemy is tailored specifically for Flask applications, and require less manual configurations.
+
+## 18. Flask and Databases Part One
+When we are working with Database we are going to these following operations:-
+- Setting up a SQLite Database in Flask App
+- Create a model in flask
+- Perform basic CRUD operations
+
 ## Application Directory Structure and Code after templates
 > Directory Structure:-
 - myenv (Virtual Environment)

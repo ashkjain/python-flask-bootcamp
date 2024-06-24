@@ -434,6 +434,15 @@ class Puppy(db.Model):
     
 ```
 In this we are initializing object of the class, with it's attributes. And to see the string representation of it we are using `__repr__` method and returning in a 'f' string (repr is used for debugging and development).
+
+## 18. Flask and Databases Part Two
+Now we are going to create an another file where we are going to setup our database. Now we are going to import 2 things from our main file, for this example we are importing the class we created called: `Puppy` and the instance for model which is `db`. Then we are going to run a function on which is part of the db module, `db.create_all()` what this will do is create the TABLES Model. Now we are going to create an instance of that Puppy class, where we have to give it two values which are name and age. Here is what we are passing:-
+```
+sam = Puppy('Sammy',3)
+frank = Puppy('Frankie',4)
+```
+So what will happen after doing this, if we try to check their ID's it will return none, because we have not entered the info in the database, because we haven't created a function that do that for us. We just have a `__repr__` which will show the string results.
+
 ## Application Directory Structure and Code after templates
 > Directory Structure:-
 - myenv (Virtual Environment)

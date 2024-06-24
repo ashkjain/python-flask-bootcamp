@@ -441,7 +441,7 @@ Now we are going to create an another file where we are going to setup our datab
 sam = Puppy('Sammy',3)
 frank = Puppy('Frankie',4)
 ```
-So what will happen after doing this, if we try to check their ID's it will return none, because we have not entered the info in the database, because we haven't created a function that do that for us. We just have a `__repr__` which will show the string results.
+So what will happen after doing this, if we try to check their ID's it will return none, because we have not entered the info in the database, because we haven't created a function that do that for us. We just have a `__repr__` which will show the string results. Now you can create a session between the data and the database, there are two ways to pass the data into the database, one is adding one data at a time or we can pass multiple data in a list and add to it. For this we are going to use the instance we created in main file and inherited in setupdatabase.py file `db`. We are going to run a method called `session` on it, and on that method we are going to call a function called `add(instance1)` or `add_all([instance1, instance2])`. We will pass the instance we created of the class Puppy or the model, then it will be added in our model and will be available in the database.
 
 ## Application Directory Structure and Code after templates
 > Directory Structure:-

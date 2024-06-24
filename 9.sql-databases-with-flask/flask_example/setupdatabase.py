@@ -1,12 +1,22 @@
-from basic import db, Puppy
+from basic import db, Puppy, app
 
-# Creates all the tables
-db.create_all()
+with app.app_context():
+    # Creates all the tables
+    db.create_all()
 
-sam = Puppy('Sammy',3)
-frank = Puppy('Frankie',4)
+    sam = Puppy('Sammy',3)
+    frank = Puppy('Frankie',4)
 
-print(sam.id)
-print(frank.id)
+    print(sam.id)
+    print(frank.id)
 
-db.session.add_all([sam,frank])
+    db.session.add_all([sam,frank])
+
+    """
+    db.session.add(sam)
+    db.session.add(frank)
+    """
+    db.session.commit()
+
+    print(sam.id)
+    print(frank.id)

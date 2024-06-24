@@ -436,13 +436,33 @@ class Puppy(db.Model):
 In this we are initializing object of the class, with it's attributes. And to see the string representation of it we are using `__repr__` method and returning in a 'f' string (repr is used for debugging and development).
 
 ## 18. Flask and Databases Part Two
-Now we are going to create an another file where we are going to setup our database. Now we are going to import 2 things from our main file, for this example we are importing the class we created called: `Puppy` and the instance for model which is `db`. Then we are going to run a function on which is part of the db module, `db.create_all()` what this will do is create the TABLES Model. Now we are going to create an instance of that Puppy class, where we have to give it two values which are name and age. Here is what we are passing:-
+Now we are going to create an another file where we are going to setup our database. Now we are going to import 3 things from our main file, for this example we are importing the class we created called: `Puppy` and the instance for model which is `db` and the app itself `app`. Now we are going to give our app the context so we are going to configure this file like this:`with app.app_context():`, now all the code will reside in this, because our code doesn't know the connection or the context itself. Then we are going to run a function on which is part of the db module, `db.create_all()` what this will do is create the TABLES Model. Now we are going to create an instance of that Puppy class, where we have to give it two values which are name and age. Here is what we are passing:-
 ```
 sam = Puppy('Sammy',3)
 frank = Puppy('Frankie',4)
 ```
-So what will happen after doing this, if we try to check their ID's it will return none, because we have not entered the info in the database, because we haven't created a function that do that for us. We just have a `__repr__` which will show the string results. Now you can create a session between the data and the database, there are two ways to pass the data into the database, one is adding one data at a time or we can pass multiple data in a list and add to it. For this we are going to use the instance we created in main file and inherited in setupdatabase.py file `db`. We are going to run a method called `session` on it, and on that method we are going to call a function called `add(instance1)` or `add_all([instance1, instance2])`. We will pass the instance we created of the class Puppy or the model, then it will be added in our model and will be available in the database.
+So what will happen after doing this, if we try to check their ID's it will return none, because we have not entered the info in the database, because we haven't created a function that do that for us. We just have a `__repr__` which will show the string results. Now you can create a session between the data and the database, there are two ways to pass the data into the database, one is adding one data at a time or we can pass multiple data in a list and add to it. For this we are going to use the instance we created in main file and inherited in setupdatabase.py file `db`. We are going to run a method called `session` on it, and on that method we are going to call a function called `add(instance1)` or `add_all([instance1, instance2])`. We will pass the instance we created of the class Puppy or the model, then it will be added in our model and will be available in the database, it will be implemented like this: `db.session.add_all([instance1, instance2])`. After that we are going to commit our changes in the database, to do that we will use the function called `commit` and will be implemented like this: `db.session.commit()`. Now we are going to create a new file to complete or run those rest of the operations which are Create, Read, Update, and Delete. Let's name it crud.py and put some code in it. We are going to import all those same class, app, and the instance, we are going to give our app the context. Now this is how we add something in the database:-
+* Create Statement
+```
+my_puppy = Puppy('Rufus',5)
+db.session.add(my_puppy)
+db.session.commit()
+```
+In this we simple using the class or model to put data in and then adding it to the session and then commiting in the database.
+* Read
+```
+all_puppies = Puppy.query.all() # Will return all the puppy objects in the table.
+print(all_puppies)
 
+# Select by ID
+puppy_one = Puppy.query.get(1)
+print(puppy_one)
+
+# Filters
+puppy_frankie = Puppy.query.filter_by(name='Frankie')
+print(puppy_frankie.all()) # Prints the list
+```
+In this the first one is the example of Select statement with all the columns included, which return the `__repr__` string. We are using the `query` method to run certain queries on it, for this one we used `all()` which returns everything. The second one is using the query and using `get()` function and we pass the id, so the primary key will be added into it to get the result. It will return the values that is at ID 1, remember in SQL the count starts from 1 not 0 like programming languages. In the third one we are using a method called filter in which as a parameter we have to pass a parameter which will be the name of the column on which your filter is based on, like the where clause in SQL, here is how you do it `variable = class.qyery.filter(name = 'Some Name')`. This function returns a list and then we can run another method to return all the result based on the filter by putting `.all()`.
 ## Application Directory Structure and Code after templates
 > Directory Structure:-
 - myenv (Virtual Environment)

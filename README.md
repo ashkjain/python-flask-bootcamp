@@ -463,6 +463,21 @@ puppy_frankie = Puppy.query.filter_by(name='Frankie')
 print(puppy_frankie.all()) # Prints the list
 ```
 In this the first one is the example of Select statement with all the columns included, which return the `__repr__` string. We are using the `query` method to run certain queries on it, for this one we used `all()` which returns everything. The second one is using the query and using `get()` function and we pass the id, so the primary key will be added into it to get the result. It will return the values that is at ID 1, remember in SQL the count starts from 1 not 0 like programming languages. In the third one we are using a method called filter in which as a parameter we have to pass a parameter which will be the name of the column on which your filter is based on, like the where clause in SQL, here is how you do it `variable = class.qyery.filter(name = 'Some Name')`. This function returns a list and then we can run another method to return all the result based on the filter by putting `.all()`.
+* Update
+```
+    first_puppy = Puppy.query.get(1)
+    first_puppy.age = 10
+    db.session.add(first_puppy)
+    db.session.commit()
+```
+In this we are changing the value of the data that has the ID of 1, then after we receive the values we are using the column as the method and then assigning the new value. Then we are just adding to the session and commiting it.
+* Delete
+```
+    second_pup = Puppy.query.get(2)
+    db.session.delete(second_pup)
+    db.session.commit()
+```
+In this section we just grabbed the data that has a ID of 2 and used the method to delete and passed the parameter which is the variable and deleted from the session and commited to make changes.
 ## Application Directory Structure and Code after templates
 > Directory Structure:-
 - myenv (Virtual Environment)

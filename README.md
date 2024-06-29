@@ -435,7 +435,7 @@ class Puppy(db.Model):
 ```
 In this we are initializing object of the class, with it's attributes. And to see the string representation of it we are using `__repr__` method and returning in a 'f' string (repr is used for debugging and development).
 
-## 18. Flask and Databases Part Two
+## 19. Flask and Databases Part Two
 Now we are going to create an another file where we are going to setup our database. Now we are going to import 3 things from our main file, for this example we are importing the class we created called: `Puppy` and the instance for model which is `db` and the app itself `app`. Now we are going to give our app the context so we are going to configure this file like this:`with app.app_context():`, now all the code will reside in this, because our code doesn't know the connection or the context itself. Then we are going to run a function on which is part of the db module, `db.create_all()` what this will do is create the TABLES Model. Now we are going to create an instance of that Puppy class, where we have to give it two values which are name and age. Here is what we are passing:-
 ```
 sam = Puppy('Sammy',3)
@@ -478,6 +478,46 @@ In this we are changing the value of the data that has the ID of 1, then after w
     db.session.commit()
 ```
 In this section we just grabbed the data that has a ID of 2 and used the method to delete and passed the parameter which is the variable and deleted from the session and commited to make changes.
+
+## 20. Flask Migrate
+Lets see how to utilize migrations.When we are creating models we need some adjustments to make in our model or table, like adding columns. So while making these changes we need to migrate these changes to update the databases. Which we will do using `Flask-Migrate`, we need to install this module by `pip install Flask-Migrate`. This helps to make adjustments in our class and then it make sure that it also effects in out SQL Database. There are four main commands that we use in command line for this:-
+* FLASK_APP Environment Variable
+```
+MacOS/Linux
+export FLASK_APP=app.py
+Windows
+set FLASK_APP=app.py
+(In this case make sure your file name is app.py, withour that it does not work in windows (BUG))
+```
+* If we do not set the flask app we will receive this error
+```
+Error: Could not locate Flask application. You did not provide the FLASK_APP enironment variable.
+```
+After providing the Environment variable you need to run these three commands:-
+* Sets up the migration directory
+```
+flask db init
+```
+* Sets up the migration file
+```
+flask db migrate -m "some message"
+```
+* Update the database with migration
+```
+flask db upgrade
+```
+Now in our main file we are going to import `from flask-migrate import Migrate`. Now we are going to connect both database and the flask app together. So when we created the Flask instance named app and SQLAlchemy instance called db, we are going to take both of them and pass them after there declaration in Migrate function: `Migrate(app, db)`. Now we are going to run those 4 commands in our command line. We ran `flask bd init` it created migration folder with some files in it. Now we ran the `flask db migrate -m "some message"` to actually create some migration, and now we are going to run those migrations and update it by using `flask db update`. So now lets try to add a new column to our database, and now we do not have to delete and run the program to do it again we will use migrations to perform that. Now we are goinf to add these extra lines in Puppy Class or Model:-
+```
+breed = db.Column(db.Text)
+```
+and also add it to __init__:-
+```
+def __init__(self, name, age , breead):
+    self.name = name
+    self.age = age
+    self.breed = breed
+```
+And now after making changes we have to run some commands in our terminal to perform those migrations. So now we will use only last two command, one to tell we migrated something, and two to upgrade those migrations. These are the commands: `flask db migrate -m "some messgae"` and `flask db upgrade`.
 ## Application Directory Structure and Code after templates
 > Directory Structure:-
 - myenv (Virtual Environment)

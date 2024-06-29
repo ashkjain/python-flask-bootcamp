@@ -1,4 +1,4 @@
-from basic import db, Puppy, app
+from app import db, Puppy, app
 
 with app.app_context():
     # Creates all the tables
